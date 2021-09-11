@@ -1,4 +1,12 @@
-export default async ({ query }: { query: string }) => {
+type FetcherResult<T> = {
+  data: T;
+};
+
+export default async <T>({
+  query,
+}: {
+  query: string;
+}): Promise<FetcherResult<T>> => {
   const url = 'http://localhost:4000/graphql';
 
   const res = await fetch(url, {
