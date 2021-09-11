@@ -7,7 +7,7 @@ export default async <T>({
 }: {
   query: string;
 }): Promise<FetcherResult<T>> => {
-  const url = 'http://localhost:4000/graphql';
+  const url = process.env.SERVER_API!;
 
   const res = await fetch(url, {
     method: 'POST',

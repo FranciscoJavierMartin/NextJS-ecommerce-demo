@@ -1,4 +1,4 @@
-import { Product } from '../../common/types/product';
+import { Product } from '@common/types/product';
 import { ProductConnection } from '../schema';
 import fetchApi from '../utils/fetchApi';
 import { normalizeProduct } from '../utils/normalize';
