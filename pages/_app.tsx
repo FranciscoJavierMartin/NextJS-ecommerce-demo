@@ -1,13 +1,17 @@
+import { FC } from 'react';
 import { AppProps } from 'next/dist/shared/lib/router/router';
-import Layout from '@components/common/Layout/Layout';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const Noop: FC = ({ children }) => <>{children}</>;
+
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps & { Component: { Layout: FC } }) {
+  const { Layout } = Component ?? Noop;
   return (
-    <>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   );
 }
 
