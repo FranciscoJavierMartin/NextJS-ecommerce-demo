@@ -1,14 +1,9 @@
-type FetcherResult<T> = {
-  data: T;
-};
+import { ApiFetcherOptions, ApiFetcherResults } from '@common/types/api';
 
 export default async <T>({
   query,
-}: {
-  query: string;
-}): Promise<FetcherResult<T>> => {
-  const url = process.env.SERVER_API!;
-
+  url,
+}: ApiFetcherOptions): Promise<ApiFetcherResults<T>> => {
   const res = await fetch(url, {
     method: 'POST',
     headers: {
