@@ -5,6 +5,7 @@ import { getConfig } from '@framework/api/config';
 import Layout from '@components/common/Layout/Layout';
 import ProductCard from '@components/product/ProductCard/ProductCard';
 import Grid from '@components/ui/Grid/Grid';
+import Hero from '@components/ui/Hero/Hero';
 
 export async function getStaticProps() {
   const products = await getAllProducts(getConfig());
@@ -26,6 +27,10 @@ export default function Home({
           <ProductCard key={product.id} product={product} />
         ))}
       </Grid>
+      <Hero
+        headline='Hi there'
+        description='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste culpa ea, dolores saepe pariatur eligendi recusandae quos aut nulla reiciendis eius quo possimus optio voluptate a fugiat repellendus repellat qui.'
+      />
     </>
   );
 }
