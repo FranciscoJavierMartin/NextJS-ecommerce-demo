@@ -6,6 +6,7 @@ import Layout from '@components/common/Layout/Layout';
 import ProductCard from '@components/product/ProductCard/ProductCard';
 import Grid from '@components/ui/Grid/Grid';
 import Hero from '@components/ui/Hero/Hero';
+import Marquee from '@components/ui/Marquee/Marquee';
 
 export async function getStaticProps() {
   const products = await getAllProducts(getConfig());
@@ -31,6 +32,11 @@ export default function Home({
         headline='Hi there'
         description='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste culpa ea, dolores saepe pariatur eligendi recusandae quos aut nulla reiciendis eius quo possimus optio voluptate a fugiat repellendus repellat qui.'
       />
+      <Marquee>
+        {products.slice(0, 3).map((product) => (
+          <ProductCard key={product.id} product={product} variant='slim' />
+        ))}
+      </Marquee>
     </>
   );
 }
