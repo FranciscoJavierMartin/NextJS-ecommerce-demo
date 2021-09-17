@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
+import { WISHLIST_ROUTE } from 'constants/routes';
 
 import styles from './Usernav.module.css';
 
@@ -13,7 +14,7 @@ const Usernav: FC = () => {
           <Cart />
         </li>
         <li className={styles.item}>
-          <Link href='/'>
+          <Link href={`/${WISHLIST_ROUTE}`}>
             <a>
               <Heart />
             </a>
