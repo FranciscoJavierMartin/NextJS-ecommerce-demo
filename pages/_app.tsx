@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { AppProps } from 'next/dist/shared/lib/router/router';
-import { UIProvider } from '@components/ui/context';
+import { UIProvider } from '@contexts/ui/UIWrapper';
 import 'tailwindcss/tailwind.css';
 import '@assets/main.css';
 

@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
-import Link from 'next/link';
 import cn from 'classnames';
+import { useUI } from '@contexts/ui/UIWrapper';
 
 import { Bag, Cross } from '@components/icons';
 
-interface CartSidebarProps {
-  onClose: () => void;
-}
+interface CartSidebarProps {}
 
-const CartSidebar: FC<CartSidebarProps> = ({onClose}) => {
+const CartSidebar: FC<CartSidebarProps> = ({}) => {
   const isEmpty = false;
+  const { closeSidebar } = useUI();
 
   const rootClass = cn('h-full flex flex-col', {
     'bg-secondary text-secondary': isEmpty,
@@ -21,7 +20,7 @@ const CartSidebar: FC<CartSidebarProps> = ({onClose}) => {
         <div className='flex items-start justify-between space-x-3'>
           <div className='h-7 flex items-center'>
             <button
-              onClick={onClose}
+              onClick={closeSidebar}
               className='hover:text-gray-500 transition ease-in-out duration-150'
             >
               <Cross className='h-6 w-6' />

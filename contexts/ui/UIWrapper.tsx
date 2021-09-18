@@ -1,4 +1,6 @@
-import React, { createContext, FC, useContext, useState } from 'react';
+import React, { createContext, FC, useContext, useReducer } from 'react';
+import { UIActionTypes } from './actions';
+import { uiReducer } from './reducer';
 
 export interface StateModifiers {
   openSidebar: () => void;
@@ -26,13 +28,14 @@ const UIContext = createContext<UIState>({
 });
 
 export const UIProvider: FC = ({ children }) => {
-  const openSidebar = () => alert('Openning sidebar');
-  const closeSidebar = () => alert('Closing sidebar');
+  const [state, dispatch] = useReducer(uiReducer, initialState);
+  const openSidebar = () => dispatch({ type: UIActionTypes.OPEN_SIDEBAR });
+  const closeSidebar = () => dispatch({ type: UIActionTypes.CLOSE_SIDEBAR });
 
   const uiState: UIState = {
+    ...state,
     openSidebar,
     closeSidebar,
-    isSidebarOpen: true,
   };
 
   return <UIContext.Provider value={uiState}>{children}</UIContext.Provider>;

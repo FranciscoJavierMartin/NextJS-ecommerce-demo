@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
-import { useUI } from '@components/ui/context';
+import { useUI } from '@contexts/ui/UIWrapper';
 import { WISHLIST_ROUTE } from 'constants/routes';
 
 import styles from './Usernav.module.css';
