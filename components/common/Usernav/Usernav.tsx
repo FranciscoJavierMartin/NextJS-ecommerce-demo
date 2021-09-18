@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
+import { useUI } from '@components/ui/context';
 import { WISHLIST_ROUTE } from 'constants/routes';
 
 import styles from './Usernav.module.css';
@@ -7,11 +8,13 @@ import styles from './Usernav.module.css';
 import { Bag as Cart, Heart } from '@components/icons';
 
 const Usernav: FC = () => {
+  const { openSidebar } = useUI();
+
   return (
     <nav>
       <ul className={styles.list}>
         <li className={styles.item}>
-          <Cart />
+          <Cart onClick={openSidebar} />
         </li>
         <li className={styles.item}>
           <Link href={`/${WISHLIST_ROUTE}`}>
