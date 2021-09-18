@@ -1,7 +1,7 @@
 import { ApiConfig } from '@common/types/api';
 import { Product } from '@common/types/product';
 import { ProductConnection } from '@framework/schema';
-import getAllProductPathsQuery from '@framework/utils/queries/getAllProductPaths';
+import { getAllProductPathsQuery } from '@framework/utils/queries/';
 
 type ReturnType = {
   products: Pick<Product, 'slug'>[];
