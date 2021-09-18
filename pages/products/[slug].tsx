@@ -5,14 +5,14 @@ import {
   InferGetStaticPropsType,
 } from 'next';
 import Layout from '@components/common/Layout/Layout';
+import getAllProductsPaths from '@framework/product/getAllProductsPaths';
+import { getConfig } from '@framework/api/config';
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const config = getConfig();
+  const { products } = await getAllProductsPaths(config);
   return {
-    paths: [
-      { params: { slug: 'cool-hat' } },
-      { params: { slug: 't-shirt' } },
-      { params: { slug: 'lightweight-jacket' } },
-    ],
+    paths: products.map((product) => ({ params: { slug: product.slug } })),
     fallback: false,
   };
 };
