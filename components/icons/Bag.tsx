@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React from 'react';
 
-const Bag: FC = ({ ...props }) => {
+const Bag = ({ ...props }) => {
   return (
     <svg
       width='20'

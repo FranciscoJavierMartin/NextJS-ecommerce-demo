@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React from 'react';
 
-const Cross: FC = ({ ...props }) => {
+const Cross = ({ ...props }) => {
   return (
     <svg
       viewBox='0 0 24 24'
