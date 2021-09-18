@@ -1,4 +1,10 @@
-import React, { createContext, FC, useContext, useReducer } from 'react';
+import React, {
+  createContext,
+  FC,
+  useContext,
+  useReducer,
+  useMemo,
+} from 'react';
 import { UIActionTypes } from './actions';
 import { uiReducer } from './reducer';
 
@@ -32,11 +38,14 @@ export const UIProvider: FC = ({ children }) => {
   const openSidebar = () => dispatch({ type: UIActionTypes.OPEN_SIDEBAR });
   const closeSidebar = () => dispatch({ type: UIActionTypes.CLOSE_SIDEBAR });
 
-  const uiState: UIState = {
-    ...state,
-    openSidebar,
-    closeSidebar,
-  };
+  const uiState: UIState = useMemo<UIState>(
+    () => ({
+      ...state,
+      openSidebar,
+      closeSidebar,
+    }),
+    [state.isSidebarOpen]
+  );
 
   return <UIContext.Provider value={uiState}>{children}</UIContext.Provider>;
 };

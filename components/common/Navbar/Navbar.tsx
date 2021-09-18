@@ -7,7 +7,7 @@ import Usernav from '../Usernav/Usernav';
 
 const Navbar: FC = () => {
   return (
-    <Container>
+    <Container additionalClasses='sticky top-0 z-30 bg-white'>
       <div className={styles.root}>
         <div className='flex flex-1 items-center'>
           <Link href='/'>
