@@ -5,6 +5,7 @@ import {
   InferGetStaticPropsType,
 } from 'next';
 import Layout from '@components/common/Layout/Layout';
+import ProductView from '@components/product/ProductView/ProductView';
 import { getAllProductsPaths, getProduct } from '@framework/product';
 import { getConfig } from '@framework/api/config';
 
@@ -30,7 +31,7 @@ export const getStaticProps = async ({
 export default function ProductSlug({
   product,
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
-  return <div>{JSON.stringify(product, null, 2)}</div>;
+  return <>{product && <ProductView product={product} />}</>;
 }
 
 ProductSlug.Layout = Layout;
