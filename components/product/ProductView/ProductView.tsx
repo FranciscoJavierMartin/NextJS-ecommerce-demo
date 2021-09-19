@@ -3,10 +3,11 @@ import Image from 'next/image';
 import cn from 'classnames';
 import Container from '@components/ui/Container/Container';
 import Button from '@components/ui/Button/Button';
+import ProductSlider from '@components/product/ProductSlider/ProductSlider';
+import Swatch from '@components/product/Swatch/Swatch';
 import { Product } from '@common/types/product';
 
 import styles from './ProductView.module.css';
-import ProductSlider from '../ProductSlider/ProductSlider';
 
 interface ProductViewProps {
   product: Product;
@@ -44,8 +45,13 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
               <div className='pb-4' key={option.id}>
                 <h2 className='uppercase font-medium'>{option.displayName}</h2>
                 <div className='flex flex-row py-4'>
-                  {option.values.map((ov) => (
-                    <div key={`${option.id}-${ov.label}`}>{ov.label}</div>
+                  {option.values.map((optValue) => (
+                    <Swatch
+                      key={`${option.id}-${optValue.label}`}
+                      label={optValue.label}
+                      color={optValue.hexColor}
+                      variant={option.displayName}
+                    />
                   ))}
                 </div>
               </div>
