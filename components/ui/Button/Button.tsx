@@ -1,9 +1,13 @@
-import React, { FC } from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
+import cn from 'classnames';
+
 import styles from './Button.module.css';
 
-const Button: FC = ({ children }) => {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+const Button: FC<ButtonProps> = ({ children, className, ...rest }) => {
   return (
-    <button className={styles.root} type='button'>
+    <button className={cn(styles.root, className)} type='button' {...rest}>
       {children}
     </button>
   );
