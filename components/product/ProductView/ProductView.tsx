@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import Container from '@components/ui/Container/Container';
+import Button from '@components/ui/Button/Button';
 import { Product } from '@common/types/product';
 
 import styles from './ProductView.module.css';
@@ -14,7 +15,7 @@ interface ProductViewProps {
 const ProductView: FC<ProductViewProps> = ({ product }) => {
   return (
     <Container>
-      <div className={cn(styles.root, 'fit')}>
+      <div className={cn(styles.root, 'fit', 'mb-5')}>
         <div className={cn(styles.productDisplay, 'fit')}>
           <div className={styles.nameBox}>
             <h1 className={styles.name}>{product.name}</h1>
@@ -48,13 +49,7 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
             </div>
           </section>
           <div>
-            <button
-              onClick={() => {}}
-              aria-label='Add to Cart'
-              className={styles.button}
-            >
-              Add to cart
-            </button>
+            <Button>Add to cart</Button>
           </div>
         </div>
       </div>
