@@ -5,6 +5,7 @@ import Container from '@components/ui/Container/Container';
 import { Product } from '@common/types/product';
 
 import styles from './ProductView.module.css';
+import ProductSlider from '../ProductSlider/ProductSlider';
 
 interface ProductViewProps {
   product: Product;
@@ -16,19 +17,25 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
       <div className={cn(styles.root, 'fit')}>
         <div className={cn(styles.productDisplay, 'fit')}>
           <div className={styles.nameBox}>
-            <h1 className={styles.name}>Product Name</h1>
-            <div className={styles.price}>50 $</div>
+            <h1 className={styles.name}>{product.name}</h1>
+            <div
+              className={styles.price}
+            >{`${product.price.value} ${product.price.currencyCode}`}</div>
           </div>
-          <div className={styles.imageContainer}>
-            <Image
-              className={styles.img}
-              src={'/product-image-placeholder.svg'}
-              alt='Product image'
-              width={1050}
-              height={1050}
-              quality='85'
-            />
-          </div>
+          <ProductSlider>
+            {product.images.map((image) => (
+              <div key={image.url} className={styles.imageContainer}>
+                <Image
+                  className={styles.img}
+                  src={image.url}
+                  alt={image.alt}
+                  width={1050}
+                  height={1050}
+                  quality='85'
+                />
+              </div>
+            ))}
+          </ProductSlider>
         </div>
         <div className={styles.sidebar}>
           <section>
@@ -37,7 +44,7 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
               <div className='flex flex-row py-4'>Variant options here!</div>
             </div>
             <div className='pb-14 break-words w-full max-w-xl text-lg'>
-              Product description
+              {product.description}
             </div>
           </section>
           <div>
