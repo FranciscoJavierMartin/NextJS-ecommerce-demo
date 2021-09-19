@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes, FC } from 'react';
 import cn from 'classnames';
 import { Check } from '@components/icons';
+import { isDark } from '@lib/color';
 
 import styles from './Swatch.module.css';
 
@@ -22,6 +23,7 @@ const Swatch: FC<SwatchProps> = ({
     [styles.active]: active,
     [styles.color]: color,
     [styles.size]: variant === 'Size',
+    [styles.dark]: color && isDark(color),
   });
   return (
     <button

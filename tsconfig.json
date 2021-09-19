@@ -15,13 +15,14 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@assets/*": ["assets/*"],
       "@common": ["framework/common"],
       "@common/*": ["framework/common/*"],
-      "@framework": ["framework/shopify"],
-      "@framework/*": ["framework/shopify/*"],
       "@components/*": ["components/*"],
       "@contexts/*": ["contexts/*"],
-      "@assets/*": ["assets/*"]
+      "@framework": ["framework/shopify"],
+      "@framework/*": ["framework/shopify/*"],
+      "@lib/*": ["lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
