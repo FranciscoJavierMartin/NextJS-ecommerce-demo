@@ -1,5 +1,11 @@
 import { CurrencyCode } from '@framework/schema';
 
+export type AvailableChoices = 'Size' | 'Color' | string;
+
+export type Choices = {
+  [P in AvailableChoices]: string;
+};
+
 export interface ProductImage {
   url: string;
   alt?: string;

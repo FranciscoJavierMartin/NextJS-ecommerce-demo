@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes, FC } from 'react';
 import cn from 'classnames';
 import { Check } from '@components/icons';
+import { AvailableChoices } from '@common/types/product';
 import { isDark } from '@lib/color';
 
 import styles from './Swatch.module.css';
@@ -8,7 +9,7 @@ import styles from './Swatch.module.css';
 interface SwatchProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: string;
   label?: string;
-  variant?: 'Size' | 'Color' | string;
+  variant?: AvailableChoices;
   active?: boolean;
 }
 

@@ -5,15 +5,11 @@ import Container from '@components/ui/Container/Container';
 import Button from '@components/ui/Button/Button';
 import ProductSlider from '@components/product/ProductSlider/ProductSlider';
 import Swatch from '@components/product/Swatch/Swatch';
-import { Product } from '@common/types/product';
+import { Product, Choices } from '@common/types/product';
+import { getVariant } from '@common/helpers';
+import { useUI } from '@contexts/ui/UIWrapper';
 
 import styles from './ProductView.module.css';
-
-type AvailableChoices = 'Size' | 'Color' | string;
-
-type Choices = {
-  [P in AvailableChoices]: string;
-};
 
 interface ProductViewProps {
   product: Product;
@@ -21,6 +17,21 @@ interface ProductViewProps {
 
 const ProductView: FC<ProductViewProps> = ({ product }) => {
   const [choices, setChoices] = useState<Choices>({});
+  const { openSidebar } = useUI();
+
+  const variant = getVariant(product, choices);
+
+  const addToCart = () => {
+    try {
+      const item = {
+        productId: product.id,
+        variantId: variant?.id,
+        variantOptions: variant?.options,
+      };
+      alert(JSON.stringify(item));
+      openSidebar();
+    } catch {}
+  };
 
   return (
     <Container>
@@ -76,7 +87,7 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
             </div>
           </section>
           <div>
-            <Button className={styles.button} onClick={() => {}}>
+            <Button className={styles.button} onClick={addToCart}>
               Add to cart
             </Button>
           </div>
