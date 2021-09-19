@@ -3,6 +3,7 @@ import { AppProps } from 'next/dist/shared/lib/router/router';
 import { UIProvider } from '@contexts/ui/UIWrapper';
 import 'tailwindcss/tailwind.css';
 import '@assets/main.css';
+import 'keen-slider/keen-slider.min.css';
 
 const Noop: FC = ({ children }) => <>{children}</>;
 
