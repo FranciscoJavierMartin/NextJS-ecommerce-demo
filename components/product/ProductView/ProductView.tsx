@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Image from 'next/image';
 import cn from 'classnames';
 import Container from '@components/ui/Container/Container';
@@ -9,11 +9,19 @@ import { Product } from '@common/types/product';
 
 import styles from './ProductView.module.css';
 
+type AvailableChoices = 'Size' | 'Color' | string;
+
+type Choices = {
+  [P in AvailableChoices]: string;
+};
+
 interface ProductViewProps {
   product: Product;
 }
 
 const ProductView: FC<ProductViewProps> = ({ product }) => {
+  const [choices, setChoices] = useState<Choices>({});
+
   return (
     <Container>
       <div className={cn(styles.root, 'fit', 'mb-5')}>
@@ -51,6 +59,13 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
                       label={optValue.label}
                       color={optValue.hexColor}
                       variant={option.displayName}
+                      active={optValue.label === choices[option.displayName]}
+                      onClick={() => {
+                        setChoices((prevState) => ({
+                          ...prevState,
+                          [option.displayName]: optValue.label,
+                        }));
+                      }}
                     />
                   ))}
                 </div>

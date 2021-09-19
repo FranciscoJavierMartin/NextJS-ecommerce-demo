@@ -1,23 +1,39 @@
-import React, { FC } from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
+import cn from 'classnames';
 import { Check } from '@components/icons';
 
 import styles from './Swatch.module.css';
 
-interface SwatchProps {
+interface SwatchProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: string;
   label?: string;
   variant?: 'Size' | 'Color' | string;
+  active?: boolean;
 }
 
-const Swatch: FC<SwatchProps> = ({ color, label, variant }) => {
+const Swatch: FC<SwatchProps> = ({
+  color,
+  label,
+  variant,
+  active,
+  ...rest
+}) => {
+  const rootClassName = cn(styles.root, {
+    [styles.active]: active,
+    [styles.color]: color,
+    [styles.size]: variant === 'Size',
+  });
   return (
     <button
       style={color ? { backgroundColor: color } : {}}
-      className={styles.root}
+      className={rootClassName}
+      {...rest}
     >
-      <span>
-        <Check />
-      </span>
+      {variant === 'Color' && active && (
+        <span>
+          <Check />
+        </span>
+      )}
       {variant === 'Size' ? label?.toLowerCase() : null}
     </button>
   );
