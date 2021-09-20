@@ -1,10 +1,10 @@
 import { ApiFetcherOptions, ApiFetcherResults } from '@common/types/api';
 
-export default async <T>({
+async function fetchApi<T>({
   query,
   url,
   variables,
-}: ApiFetcherOptions): Promise<ApiFetcherResults<T>> => {
+}: ApiFetcherOptions): Promise<ApiFetcherResults<T>> {
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -23,4 +23,6 @@ export default async <T>({
   }
 
   return { data };
-};
+}
+
+export default fetchApi;

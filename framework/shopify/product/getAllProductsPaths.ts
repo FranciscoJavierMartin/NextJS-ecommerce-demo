@@ -6,7 +6,8 @@ import { getAllProductPathsQuery } from '@framework/utils/queries/';
 type ReturnType = {
   products: Pick<Product, 'slug'>[];
 };
-export default async (config: ApiConfig): Promise<ReturnType> => {
+
+async function getAllProductPaths(config: ApiConfig): Promise<ReturnType> {
   const { data } = await config.fetch<{ products: ProductConnection }>({
     query: getAllProductPathsQuery,
     url: config.apiUrl,
@@ -16,4 +17,6 @@ export default async (config: ApiConfig): Promise<ReturnType> => {
       slug: handle,
     })),
   };
-};
+}
+
+export default getAllProductPaths;
