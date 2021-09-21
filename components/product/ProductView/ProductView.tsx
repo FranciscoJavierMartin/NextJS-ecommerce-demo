@@ -7,7 +7,6 @@ import ProductSlider from '@components/product/ProductSlider/ProductSlider';
 import Swatch from '@components/product/Swatch/Swatch';
 import { Product, Choices } from '@common/types/product';
 import { getVariant } from '@common/helpers';
-import { useApiProvider } from '@common';
 import { useUI } from '@contexts/ui/UIWrapper';
 import useAddItem from '@framework/cart/useAddItem';
 
@@ -20,7 +19,6 @@ interface ProductViewProps {
 const ProductView: FC<ProductViewProps> = ({ product }) => {
   const [choices, setChoices] = useState<Choices>({});
   const { openSidebar } = useUI();
-  const { hooks, fetcher } = useApiProvider();
   const addItem = useAddItem();
 
   const variant = getVariant(product, choices);
@@ -32,7 +30,7 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
         variantId: variant?.id,
         variantOptions: variant?.options,
       };
-      useAddItem();
+      addItem();
       openSidebar();
     } catch {}
   };
