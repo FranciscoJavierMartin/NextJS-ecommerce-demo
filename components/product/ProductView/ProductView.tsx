@@ -20,7 +20,7 @@ interface ProductViewProps {
 const ProductView: FC<ProductViewProps> = ({ product }) => {
   const [choices, setChoices] = useState<Choices>({});
   const { openSidebar } = useUI();
-  const data = useApiProvider();
+  const { hooks, fetcher } = useApiProvider();
   const addItem = useAddItem();
 
   const variant = getVariant(product, choices);

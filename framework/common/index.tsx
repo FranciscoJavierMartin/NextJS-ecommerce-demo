@@ -1,18 +1,26 @@
 import { createContext, FC, useContext, useMemo } from 'react';
-import { ApiConfig } from './types/api';
+import { ApiConfig, ApiHooks, ApiProviderContext } from './types/api';
 
-export const ApiContext = createContext({});
+export const ApiContext = createContext<ApiProviderContext>(
+  {} as ApiProviderContext
+);
 
 interface ApiProviderProps {
   config: ApiConfig;
+  hooks: ApiHooks;
 }
 
-export const ApiProvider: FC<ApiProviderProps> = ({ children, config }) => {
+export const ApiProvider: FC<ApiProviderProps> = ({
+  children,
+  config,
+  hooks,
+}) => {
   const coreConfig = useMemo(
     () => ({
       fetcher: config.fetch,
+      hooks,
     }),
-    [config.fetch]
+    [config.fetch, hooks]
   );
 
   return (
@@ -20,4 +28,4 @@ export const ApiProvider: FC<ApiProviderProps> = ({ children, config }) => {
   );
 };
 
-export const useApiProvider = () => useContext(ApiContext);
+export const useApiProvider = () => useContext<ApiProviderContext>(ApiContext);
