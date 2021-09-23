@@ -10,7 +10,6 @@ type ReturnType = {
 async function getAllProductPaths(config: ApiConfig): Promise<ReturnType> {
   const { data } = await config.fetch<{ products: ProductConnection }>({
     query: getAllProductPathsQuery,
-    url: config.apiUrl,
   });
   return {
     products: data.products.edges.map(({ node: { handle } }) => ({

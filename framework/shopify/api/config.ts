@@ -10,7 +10,6 @@ class Config {
 }
 
 const configWrapper = new Config({
-  apiUrl: process.env.SERVER_API!,
   fetch: fetchApi,
 });
 

@@ -11,7 +11,6 @@ async function getProduct(
     data: { productByHandle },
   } = await config.fetch<{ productByHandle: ShopifyProduct }>({
     query: getProductQuery,
-    url: config.apiUrl,
     variables,
   });
 
