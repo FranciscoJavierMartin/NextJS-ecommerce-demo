@@ -4,13 +4,14 @@ export const handler = {
   fetchOptions: {
     query: '',
   },
-  fetcher() {
+  async fetcher({ fetch, options }: any) {
+    const data = await fetch({ ...options });
     return {
-      data: '',
+      data,
     };
   },
-  useHook: ({ fetch }: any) => {
-    const data = fetch();
+  useHook: ({ useData }: any) => {
+    const data = useData();
     return {
       data,
     };
