@@ -4,7 +4,7 @@ const merge = require('deepmerge');
 const prettier = require('prettier');
 
 function withFrameworkConfig(defaultConfig = {}) {
-  const framework = process.env.FRAMEWORK_PROVIDER;
+  const framework = process.env.NEXT_PUBLIC_FRAMEWORK_PROVIDER;
   const frameworkNextConfig = require(path.join(
     '../',
     framework,

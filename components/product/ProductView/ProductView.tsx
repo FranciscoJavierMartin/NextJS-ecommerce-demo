@@ -30,7 +30,6 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
         variantId: variant?.id,
         variantOptions: variant?.options,
       };
-      debugger;
       const output = await addItem(item);
       alert(JSON.stringify(output));
       openSidebar();
