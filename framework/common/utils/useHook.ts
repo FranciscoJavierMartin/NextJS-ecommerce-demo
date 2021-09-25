@@ -1,8 +1,8 @@
+import useSWR from 'swr';
 import { useApiProvider } from '@common';
 import { ApiFetcher } from '@common/types/api';
 import { ApiHooks } from '@common/types/hooks';
 import { MutationHook } from '@common/types/hooks';
-import useSWR from 'swr';
 
 export const useHook = (fn: (apiHooks: ApiHooks) => MutationHook) => {
   const { hooks } = useApiProvider();
@@ -22,7 +22,7 @@ export const useMutationHook = (hook: MutationHook) => {
   });
 };
 
-function useData(hook: any, fetcher: ApiFetcher, ctx: any) {
+const useData = (hook: any, fetcher: ApiFetcher, ctx: any) => {
   const hookFetcher = async (query: string) => {
     try {
       return await hook.fetcher({
@@ -36,11 +36,10 @@ function useData(hook: any, fetcher: ApiFetcher, ctx: any) {
   };
 
   const response = useSWR(hook.fetchOptions.query, hookFetcher, ctx.swrOptions);
-
   return response;
-}
+};
 
-export function useSWRHook(hook: any) {
+export const useSWRHook = (hook: any) => {
   const { fetcher } = useApiProvider();
 
   return hook.useHook({
@@ -49,4 +48,4 @@ export function useSWRHook(hook: any) {
       return data;
     },
   });
-}
+};

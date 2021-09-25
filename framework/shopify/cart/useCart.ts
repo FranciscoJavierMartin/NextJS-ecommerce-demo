@@ -29,7 +29,9 @@ export const handler = {
         revalidateOnFocus: false,
       },
     });
-    return useMemo(() => data, [data]);
+    return useMemo(() => {
+      return data;
+    }, [data]);
   },
 };
 

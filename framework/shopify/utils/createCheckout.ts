@@ -8,9 +8,9 @@ import {
   SHOPIFY_COOKIE_EXPIRE,
 } from '@framework/constants';
 
-async function createCheckout(
+const createCheckout = async (
   fetch: ApiFetcher<{ checkoutCreate: CheckoutCreatePayload }>
-): Promise<Maybe<Checkout | undefined>> {
+): Promise<Maybe<Checkout | undefined>> => {
   const { data } = await fetch({
     query: checkoutCreateMutation,
   });
@@ -23,10 +23,10 @@ async function createCheckout(
     };
 
     Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE_KEY, checkoutId, options);
-    Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout.webUrl, options);
+    Cookies.set(SHOPIFY_CHECKOUT_URL_COOKIE, checkout?.webUrl, options);
   }
 
   return checkout;
-}
+};
 
 export default createCheckout;

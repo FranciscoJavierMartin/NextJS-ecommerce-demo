@@ -13,8 +13,8 @@ export const handler: MutationHook = {
   fetcherOptions: {
     query: checkoutLineItemsAddMutation,
   },
-  fetcher: async ({ fetch, options, input }: FetcherHookContext) =>
-    await fetch({
+  fetcher: async ({ fetch, options, input }: FetcherHookContext) => {
+    const response = await fetch({
       ...options,
       variables: {
         checkoutId: getCheckoutId(),
@@ -25,7 +25,9 @@ export const handler: MutationHook = {
           },
         ],
       },
-    }),
+    });
+    return response;
+  },
   useHook: ({ fetch }: MutationHookContext) => {
     return async (input: any) => {
       const response = await fetch(input);
