@@ -5,6 +5,8 @@ import {
   ProductOption as ShopifyProductOption,
   ProductVariantConnection,
   SelectedOption,
+  Checkout,
+  CheckoutLineItemEdge,
 } from '../schema';
 import {
   Product,
@@ -13,6 +15,7 @@ import {
   ProductVariant,
   ProductOption,
 } from '@common/types/product';
+import { Cart, LineItem } from '@common/types/cart';
 
 function normalizeProductImage({ edges }: ImageConnection): ProductImage[] {
   return edges.map(({ node: { originalSrc, ...rest } }) => ({
@@ -103,6 +106,50 @@ export function normalizeProduct({
       ? options.filter((o) => o.name !== 'Title').map(normalizeProductOption)
       : [],
     variants: variants ? normalizeProductVariants(variants) : [],
+    ...rest,
+  };
+}
+
+export function normalizeCart(checkout: Checkout): Cart {
+  return {
+    id: checkout.id,
+    createdAt: checkout.createdAt,
+    currency: {
+      code: checkout.totalPriceV2.currencyCode,
+    },
+    taxesIncluded: checkout.taxesIncluded,
+    lineItemsSubtotalPrice: +checkout.subtotalPriceV2.amount,
+    totalPrice: checkout.totalPriceV2.amount,
+    lineItems: checkout.lineItems.edges.map(normalizeLineItem),
+    discounts: [],
+  };
+}
+
+export function normalizeLineItem({
+  node: { id, title, variant, ...rest },
+}: CheckoutLineItemEdge): LineItem {
+  return {
+    id,
+    variantId: variant?.id || '',
+    productId: variant?.id || '',
+    name: title,
+    path: variant?.product?.handle ?? '',
+    discounts: [],
+    options: variant?.selectedOptions.map(({ name, value }: SelectedOption) =>
+      normalizeProductOption({ id, name, values: [value] })
+    ),
+    variant: {
+      id: variant?.id,
+      sku: variant?.sku ?? '',
+      name: variant?.title,
+      image: {
+        // Just because this is a demo project
+        url: `/images/${variant?.image?.originalSrc}`,
+      },
+      requiresShipping: variant?.requiresShipping ?? false,
+      price: variant?.priceV2.amount,
+      listPrice: variant?.compareAtPriceV2?.amount,
+    },
     ...rest,
   };
 }

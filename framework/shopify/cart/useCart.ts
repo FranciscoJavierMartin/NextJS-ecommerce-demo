@@ -1,12 +1,17 @@
 import { useMemo } from 'react';
 import useCart from '@common/cart/useCart';
-import { createCheckout, getCheckoutQuery } from '@framework/utils';
+import {
+  checkoutToCart,
+  createCheckout,
+  getCheckoutQuery,
+} from '@framework/utils';
+import { Cart } from '@common/types/cart';
 
 export const handler = {
   fetchOptions: {
     query: getCheckoutQuery,
   },
-  async fetcher({ fetch, options, input: { checkoutId } }: any) {
+  async fetcher({ fetch, options, input: { checkoutId } }: any): Promise<Cart> {
     let checkout;
 
     if (checkoutId) {
@@ -20,7 +25,10 @@ export const handler = {
     } else {
       checkout = await createCheckout(fetch);
     }
-    return checkout;
+
+    const cart = checkoutToCart(checkout);
+
+    return cart;
   },
   useHook: ({ useData }: any) => {
     const data = useData({
