@@ -20,8 +20,9 @@ export const ApiProvider: FC<ApiProviderProps> = ({
     () => ({
       fetcher: config.fetch,
       hooks,
+      checkoutCookie: config.checkoutCookie,
     }),
-    [config.fetch, hooks]
+    [config.fetch, hooks, config.checkoutCookie]
   );
 
   return (

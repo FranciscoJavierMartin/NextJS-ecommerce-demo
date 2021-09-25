@@ -30,7 +30,7 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
         variantId: variant?.id,
         variantOptions: variant?.options,
       };
-      addItem();
+      addItem(item);
       openSidebar();
     } catch {}
   };

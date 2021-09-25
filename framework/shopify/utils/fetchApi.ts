@@ -5,6 +5,7 @@ async function fetchApi<T>({
   query,
   variables,
 }: ApiFetcherOptions): Promise<ApiFetcherResults<T>> {
+  
   const res = await fetch(API_URL, {
     method: 'POST',
     headers: {

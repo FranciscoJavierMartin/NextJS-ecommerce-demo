@@ -1,4 +1,5 @@
 import { ApiConfig } from '@common/types/api';
+import { SHOPIFY_CHECKOUT_ID_COOKIE_KEY } from '@framework/constants';
 import { fetchApi } from '@framework/utils';
 
 class Config {
@@ -11,6 +12,7 @@ class Config {
 
 const configWrapper = new Config({
   fetch: fetchApi,
+  checkoutCookie: SHOPIFY_CHECKOUT_ID_COOKIE_KEY,
 });
 
 export function getConfig(): ApiConfig {

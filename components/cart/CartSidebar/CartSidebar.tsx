@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import cn from 'classnames';
+import useCart from '@common/cart/useCart';
 import { useUI } from '@contexts/ui/UIWrapper';
 
 import { Bag, Cross } from '@components/icons';
@@ -7,8 +8,9 @@ import { Bag, Cross } from '@components/icons';
 interface CartSidebarProps {}
 
 const CartSidebar: FC<CartSidebarProps> = ({}) => {
-  const isEmpty = false;
+  const isEmpty = true;
   const { closeSidebar } = useUI();
+  const { data } = useCart();
 
   const rootClass = cn('h-full flex flex-col', {
     'bg-secondary text-secondary': isEmpty,
