@@ -87,7 +87,9 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
           {price} {currencyCode}
         </span>
         <button
-          onClick={() => removeItem('')}
+          onClick={() => {
+            const cart = removeItem({ id: item.id });
+          }}
           className='flex justify-end outline-none'
         >
           <Trash />
