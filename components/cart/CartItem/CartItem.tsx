@@ -4,6 +4,7 @@ import Link from 'next/link';
 import cn from 'classnames';
 import Swatch from '@components/product/Swatch/Swatch';
 import { LineItem } from '@common/types/cart';
+import useRemoveItem from '@framework/cart/useRemoveItem';
 
 import { Trash, Plus, Minus } from '@components/icons';
 
@@ -15,6 +16,7 @@ interface CartItemProps {
 }
 
 const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
+  const removeItem = useRemoveItem();
   const price = item.variant.price! * item.quantity || 0;
   const { options } = item;
 
@@ -84,7 +86,10 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
         <span>
           {price} {currencyCode}
         </span>
-        <button onClick={() => {}} className='flex justify-end outline-none'>
+        <button
+          onClick={() => removeItem('')}
+          className='flex justify-end outline-none'
+        >
           <Trash />
         </button>
       </div>
