@@ -23,9 +23,9 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
   const price = item.variant.price! * item.quantity || 0;
   const { options } = item;
 
-  const handleQuantityChange = async (val: number) => {
+  const handleQuantityChange = (val: number) => {
     setQuantity(val);
-    await updateItem({
+    updateItem({
       id: item.id,
       variantId: item.variantId,
       quantity: val,
