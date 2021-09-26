@@ -3,12 +3,23 @@ import cn from 'classnames';
 
 import styles from './Button.module.css';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  isLoading?: boolean;
+}
 
-const Button: FC<ButtonProps> = ({ children, className, ...rest }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  isLoading,
+  className,
+  ...rest
+}) => {
+  const rootClassName = cn(styles.root, className, {
+    [styles.loading]: isLoading,
+  });
   return (
-    <button className={cn(styles.root, className)} type='button' {...rest}>
+    <button className={rootClassName} type='button' {...rest}>
       {children}
+      {isLoading && <div>Loading...</div>}
     </button>
   );
 };

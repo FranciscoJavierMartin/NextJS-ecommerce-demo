@@ -3,15 +3,16 @@ import cn from 'classnames';
 import useCart from '@framework/cart/useCart';
 import { useUI } from '@contexts/ui/UIWrapper';
 import { LineItem } from '@common/types/cart';
+import CartItem from '../CartItem/CartItem';
+import Button from '@components/ui/Button/Button';
 
 import { Bag, Cross } from '@components/icons';
-import CartItem from '../CartItem/CartItem';
 
 interface CartSidebarProps {}
 
 const CartSidebar: FC<CartSidebarProps> = ({}) => {
   const { closeSidebar } = useUI();
-  const { data, isEmpty, mutate } = useCart();
+  const { data, isEmpty } = useCart();
 
   const rootClass = cn('h-full flex flex-col', {
     'bg-secondary text-secondary': isEmpty,
@@ -87,7 +88,7 @@ const CartSidebar: FC<CartSidebarProps> = ({}) => {
                 </span>
               </div>
             </div>
-            <button onClick={() => {}}>Proceed to Checkout</button>
+            <Button onClick={() => {}}>Proceed to Checkout</Button>
           </div>
         </>
       )}
