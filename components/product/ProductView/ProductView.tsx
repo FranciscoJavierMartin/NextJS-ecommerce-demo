@@ -27,11 +27,11 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
     try {
       const item = {
         productId: product.id,
-        variantId: variant?.id,
+        variantId: String(variant?.id),
         variantOptions: variant?.options,
+        quantity: 1,
       };
       const output = await addItem(item);
-      alert(JSON.stringify(output));
       openSidebar();
     } catch {}
   };
