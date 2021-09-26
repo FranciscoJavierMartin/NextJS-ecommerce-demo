@@ -11,7 +11,7 @@ interface CartSidebarProps {}
 
 const CartSidebar: FC<CartSidebarProps> = ({}) => {
   const { closeSidebar } = useUI();
-  const { data, isEmpty } = useCart();
+  const { data, isEmpty, mutate } = useCart();
 
   const rootClass = cn('h-full flex flex-col', {
     'bg-secondary text-secondary': isEmpty,
