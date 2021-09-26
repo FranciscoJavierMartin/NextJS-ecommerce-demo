@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import cn from 'classnames';
@@ -17,10 +17,32 @@ interface CartItemProps {
 }
 
 const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
+  const [quantity, setQuantity] = useState<number>(item.quantity);
   const removeItem = useRemoveItem();
   const updateItem = useUpdateItem();
   const price = item.variant.price! * item.quantity || 0;
   const { options } = item;
+
+  const handleQuantityChange = async (val: number) => {
+    setQuantity(val);
+    await updateItem({
+      id: item.id,
+      variantId: item.variantId,
+      quantity: val,
+    });
+  };
+
+  const handleQuantity = async (e: ChangeEvent<HTMLInputElement>) => {
+    const val = +e.target.value;
+    handleQuantityChange(val);
+  };
+
+  const incrementQuantity = async (increment: number = 1) => {
+    const val = quantity + increment;
+    if (val >= 0) {
+      handleQuantityChange(val);
+    }
+  };
 
   return (
     <li
@@ -66,15 +88,7 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
         </div>
         <div className='flex items-center mt-3'>
           <button type='button'>
-            <Minus
-              onClick={() =>
-                updateItem({
-                  id: item.id,
-                  quantity: item.quantity - 1,
-                  variantId: item.variantId,
-                })
-              }
-            />
+            <Minus onClick={() => incrementQuantity(-1)} />
           </button>
           <label>
             <input
@@ -82,26 +96,12 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
               max={99}
               min={0}
               className={styles.quantity}
-              value={item.quantity}
-              onChange={() =>
-                updateItem({
-                  id: item.id,
-                  quantity: item.quantity + 1,
-                  variantId: item.variantId,
-                })
-              }
+              value={quantity}
+              onChange={handleQuantity}
             />
           </label>
           <button type='button'>
-            <Plus
-              onClick={() =>
-                updateItem({
-                  id: item.id,
-                  quantity: item.quantity + 1,
-                  variantId: item.variantId,
-                })
-              }
-            />
+            <Plus onClick={() => incrementQuantity(1)} />
           </button>
         </div>
       </div>
