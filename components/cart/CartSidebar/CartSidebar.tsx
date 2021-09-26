@@ -88,7 +88,7 @@ const CartSidebar: FC<CartSidebarProps> = ({}) => {
                 </span>
               </div>
             </div>
-            <Button onClick={() => {}}>Proceed to Checkout</Button>
+            <Button Component='a' href='/'>Proceed to Checkout</Button>
           </div>
         </>
       )}

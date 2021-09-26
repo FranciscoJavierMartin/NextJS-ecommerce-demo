@@ -53,7 +53,6 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
       <div className='w-16 h-16 bg-violet relative overflow-hidden cursor-pointer'>
         <Image
           onClick={() => {}}
-          className={styles.productImage}
           width={150}
           height={150}
           src={item.variant.image!.url}
