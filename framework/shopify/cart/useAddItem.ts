@@ -1,6 +1,7 @@
 import useAddItem from '@common/cart/useAddItem';
+import { Cart } from '@common/types/cart';
 import {
-  FetcherHookContext,
+  HookFetcherContext,
   MutationHook,
   MutationHookContext,
 } from '@common/types/hooks';
@@ -9,12 +10,20 @@ import { checkoutLineItemsAddMutation } from '@framework/utils/mutations';
 
 export default useAddItem;
 
+export type AddItemHook = {
+  fetcherInput: {
+    variantId: string;
+    quantity: number;
+  };
+  data: Cart;
+};
+
 export const handler: MutationHook = {
   fetcherOptions: {
     query: checkoutLineItemsAddMutation,
   },
-  fetcher: async ({ fetch, options, input }: FetcherHookContext) => {
-    const response = await fetch({
+  fetcher: async ({ fetch, options, input }: HookFetcherContext) =>
+    await fetch({
       ...options,
       variables: {
         checkoutId: getCheckoutId(),
@@ -25,9 +34,7 @@ export const handler: MutationHook = {
           },
         ],
       },
-    });
-    return response;
-  },
+    }),
   useHook: ({ fetch }: MutationHookContext) => {
     return async (input: any) => {
       const response = await fetch(input);
