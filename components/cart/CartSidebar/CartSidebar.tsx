@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import cn from 'classnames';
-import useCart from '@common/cart/useCart';
+import useCart from '@framework/cart/useCart';
 import { useUI } from '@contexts/ui/UIWrapper';
+import { LineItem } from '@common/types/cart';
 
 import { Bag, Cross } from '@components/icons';
 
 interface CartSidebarProps {}
 
 const CartSidebar: FC<CartSidebarProps> = ({}) => {
-  const isEmpty = true;
   const { closeSidebar } = useUI();
-  const { data } = useCart();
+  const { data, isEmpty } = useCart();
 
   const rootClass = cn('h-full flex flex-col', {
     'bg-secondary text-secondary': isEmpty,
@@ -52,7 +52,11 @@ const CartSidebar: FC<CartSidebarProps> = ({}) => {
               My Cart
             </h2>
             <ul className='py-6 space-y-6 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3'>
-              Cart Items Here!
+              {data?.lineItems.map((item: LineItem) => (
+                <div key={item.id}>
+                  {item.name} - {item.quantity}
+                </div>
+              ))}
             </ul>
           </div>
           <div className='flex-shrink-0 px-4 py-5 sm:px-6'>
@@ -60,7 +64,9 @@ const CartSidebar: FC<CartSidebarProps> = ({}) => {
               <ul className='py-3'>
                 <li className='flex justify-between py-1'>
                   <span>Subtotal</span>
-                  <span>20$</span>
+                  <span>
+                    {data?.lineItemsSubtotalPrice} {data?.currency.code}
+                  </span>
                 </li>
                 <li className='flex justify-between py-1'>
                   <span>Taxes</span>
@@ -73,7 +79,9 @@ const CartSidebar: FC<CartSidebarProps> = ({}) => {
               </ul>
               <div className='flex justify-between border-t border-accents-3 py-3 font-bold mb-10'>
                 <span>Total</span>
-                <span>120$</span>
+                <span>
+                  {data?.totalPrice} {data?.currency.code}
+                </span>
               </div>
             </div>
             <button onClick={() => {}}>Proceed to Checkout</button>
