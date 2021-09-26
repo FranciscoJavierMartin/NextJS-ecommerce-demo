@@ -7,6 +7,7 @@ import { isDark } from '@lib/color';
 import styles from './Swatch.module.css';
 
 interface SwatchProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  size?: 'sm' | 'md' | 'lg';
   color?: string;
   label?: string;
   variant?: AvailableChoices;
@@ -14,6 +15,7 @@ interface SwatchProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Swatch: FC<SwatchProps> = ({
+  size = 'md',
   color,
   label,
   variant,
@@ -25,6 +27,7 @@ const Swatch: FC<SwatchProps> = ({
     [styles.color]: color,
     [styles.size]: variant === 'Size',
     [styles.dark]: color && isDark(color),
+    [styles.sm]: size === 'sm',
   });
   return (
     <button

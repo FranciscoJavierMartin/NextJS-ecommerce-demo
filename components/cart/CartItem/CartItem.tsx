@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import cn from 'classnames';
+import Swatch from '@components/product/Swatch/Swatch';
 import { LineItem } from '@common/types/cart';
 
 import { Trash, Plus, Minus } from '@components/icons';
@@ -24,18 +25,14 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
       })}
     >
       <div className='w-16 h-16 bg-violet relative overflow-hidden cursor-pointer'>
-        <Link href={`/products/${item.path}`}>
-          <a>
-            <Image
-              onClick={() => {}}
-              className={styles.productImage}
-              width={150}
-              height={150}
-              src={item.variant.image!.url}
-              unoptimized
-            />
-          </a>
-        </Link>
+        <Image
+          onClick={() => {}}
+          className={styles.productImage}
+          width={150}
+          height={150}
+          src={item.variant.image!.url}
+          unoptimized
+        />
       </div>
       <div className='flex-1 flex flex-col text-base'>
         <Link href={'/'}>
@@ -46,16 +43,23 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
             {item.name}
           </span>
         </Link>
-        {options &&
-          options.length > 0 &&
-          options.map((option) => (
-            <span
-              key={`${item.id}-${option.displayName}`}
-              className='text-sm font-semibold text-accents-7'
-            >
-              {option.values[0].label}
-            </span>
-          ))}
+        <div className='flex p-1'>
+          {options &&
+            options.length > 0 &&
+            options.map((option) => {
+              const value = option.values[0];
+              return (
+                <Swatch
+                  key={`${item.id}-${option.displayName}`}
+                  size='sm'
+                  onClick={() => {}}
+                  label={value.label}
+                  color={value.hexColor}
+                  variant={option.displayName}
+                />
+              );
+            })}
+        </div>
         <div className='flex items-center mt-3'>
           <button type='button'>
             <Minus onClick={() => {}} />
