@@ -5,6 +5,7 @@ import { useUI } from '@contexts/ui/UIWrapper';
 import { LineItem } from '@common/types/cart';
 
 import { Bag, Cross } from '@components/icons';
+import CartItem from '../CartItem/CartItem';
 
 interface CartSidebarProps {}
 
@@ -53,9 +54,11 @@ const CartSidebar: FC<CartSidebarProps> = ({}) => {
             </h2>
             <ul className='py-6 space-y-6 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3'>
               {data?.lineItems.map((item: LineItem) => (
-                <div key={item.id}>
-                  {item.name} - {item.quantity}
-                </div>
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  currencyCode={data.currency.code}
+                />
               ))}
             </ul>
           </div>
