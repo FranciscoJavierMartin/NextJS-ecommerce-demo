@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Swatch from '@components/product/Swatch/Swatch';
 import { LineItem } from '@common/types/cart';
 import useRemoveItem from '@framework/cart/useRemoveItem';
+import useUpdateItem from '@framework/cart/useUpdateItem';
 
 import { Trash, Plus, Minus } from '@components/icons';
 
@@ -17,6 +18,7 @@ interface CartItemProps {
 
 const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
   const removeItem = useRemoveItem();
+  const updateItem = useUpdateItem();
   const price = item.variant.price! * item.quantity || 0;
   const { options } = item;
 
@@ -64,7 +66,15 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
         </div>
         <div className='flex items-center mt-3'>
           <button type='button'>
-            <Minus onClick={() => {}} />
+            <Minus
+              onClick={() =>
+                updateItem({
+                  id: item.id,
+                  quantity: item.quantity - 1,
+                  variantId: item.variantId,
+                })
+              }
+            />
           </button>
           <label>
             <input
@@ -73,12 +83,25 @@ const CartItem: FC<CartItemProps> = ({ item, currencyCode }) => {
               min={0}
               className={styles.quantity}
               value={item.quantity}
-              onChange={() => {}}
-              onBlur={() => {}}
+              onChange={() =>
+                updateItem({
+                  id: item.id,
+                  quantity: item.quantity + 1,
+                  variantId: item.variantId,
+                })
+              }
             />
           </label>
           <button type='button'>
-            <Plus onClick={() => {}} />
+            <Plus
+              onClick={() =>
+                updateItem({
+                  id: item.id,
+                  quantity: item.quantity + 1,
+                  variantId: item.variantId,
+                })
+              }
+            />
           </button>
         </div>
       </div>
